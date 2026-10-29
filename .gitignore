@@ -1,0 +1,10 @@
+# build output
+*.app
+build/
+cover/target/
+
+# game images and generated data must never be committed
+*.iso
+*.7z
+*.asset
+.DS_Store
