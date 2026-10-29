@@ -1,48 +1,49 @@
+🇬🇧 **English** · 🇷🇺 [Русская версия](README.ru.md)
+
 # ISO2GOD
 
-Mac app that converts an Xbox 360 `.iso` into **Games on Demand** (GOD) for Freeboot consoles and fetches
-cover art for the **Aurora** dashboard. / Приложение для macOS: конвертирует Xbox 360 `.iso` в формат
-Games on Demand (Freeboot) и подготавливает обложки для Aurora.
+A macOS app that converts an Xbox 360 `.iso` into **Games on Demand** (GOD) for Freeboot consoles and
+fetches cover art for the **Aurora** dashboard.
 
-## Возможности
-- Перетащили `.iso`, выбрали папку, нажали «Генерация». Внутри папки создаётся подпапка с именем игры.
-- Обложка скачивается по Title ID с xboxunity.net и сохраняется как `GC<TitleID>.asset` в общую папку обложек
-  (путь выбирается один раз, меняется в окне).
-- Кнопка «Добавить обложки на флешку…» раскладывает `.asset` по `Aurora/Data/GameData/<TitleID>_<номер>/`.
-  Нужен FAT32-диск и предварительное сканирование игры в Aurora (номер присваивает сама Aurora).
-- Подробная инструкция есть в приложении (кнопка «Инструкция»).
+## Features
+- Drop an `.iso`, pick an output folder, press **Генерация** (Generate). A subfolder named after the game is created inside it.
+- The cover is downloaded by Title ID from xboxunity.net and saved as `GC<TitleID>.asset` in a shared covers
+  folder (chosen once, changeable in the window).
+- **Add covers to the flash drive** copies the `.asset` files into `Aurora/Data/GameData/<TitleID>_<number>/`.
+  Requires a FAT32 drive and the game being scanned by Aurora first (Aurora assigns the number itself).
+- A step-by-step guide is built into the app (the "Инструкция" button).
 
-## Быстрый старт
-1. Соберите приложение (см. ниже) и откройте `ISO2GOD.app`.
-2. Перетащите `.iso`, выберите папку, нажмите «Генерация». Папку игры скопируйте на флешку.
-3. Просканируйте игру в Aurora на консоли, вставьте флешку в Mac и нажмите «Добавить обложки на флешку…».
+> The interface is currently in Russian.
 
-## Сборка
-Нужны полный Xcode (Command Line Tools недостаточно: SwiftUI-макросы) и Rust (`brew install rust`).
+## Quick start
+1. Build the app (see below) and open `ISO2GOD.app`.
+2. Drop an `.iso`, choose a folder, press Generate. Copy the game folder to your flash drive.
+3. Scan the game in Aurora on the console, plug the drive into the Mac and press "Add covers to the flash drive".
+
+## Build
+Requires full Xcode (Command Line Tools are not enough: SwiftUI macros) and Rust (`brew install rust`).
 
     ./build.sh
 
-Результат: `ISO2GOD.app`. Подпись ad-hoc, при первом запуске: правый клик → «Открыть».
+Output: `ISO2GOD.app`. It is ad-hoc signed, so on first launch use right-click → Open.
 
-## Приватность
-- Приложение не собирает и не отправляет персональные данные, в нём нет аналитики.
-- Единственный сетевой запрос: Title ID игры (8 hex-символов) отправляется на xboxunity.net за обложкой.
-- Локально хранится только путь к папке обложек (UserDefaults).
+## Privacy
+- The app collects and sends no personal data and has no analytics.
+- The only network request: the game's Title ID (8 hex characters) is sent to xboxunity.net to look up a cover.
+- Locally it stores only the covers folder path (UserDefaults).
 
-## Важно
-Репозиторий не содержит игр и образов. Используйте собственные резервные копии дисков.
+## Disclaimer
+This repository contains no games or disc images. Use your own backups.
 
-## Что использовано
-| Компонент | Для чего | Источник |
+## Credits
+| Component | Purpose | Source |
 |---|---|---|
-| iso2god-rs | конвертация ISO → GOD | https://github.com/iliazeus/iso2god-rs (MIT) |
-| libaustralis | клиент XboxUnity и запись `.asset` | https://github.com/jrobiche/libaustralis (GPL-3.0) |
-| AuroraAssetEditor | описание формата `.asset` и имён файлов (`GC<TitleID>.asset`) | https://github.com/XboxUnity/AuroraAssetEditor |
-| XboxUnity | источник обложек | https://xboxunity.net |
-| SwiftUI | интерфейс | Apple |
+| iso2god-rs | ISO → GOD conversion | https://github.com/iliazeus/iso2god-rs (MIT) |
+| libaustralis | XboxUnity client and `.asset` writing | https://github.com/jrobiche/libaustralis (GPL-3.0) |
+| AuroraAssetEditor | `.asset` format and file naming (`GC<TitleID>.asset`) | https://github.com/XboxUnity/AuroraAssetEditor |
+| XboxUnity | cover art source | https://xboxunity.net |
+| SwiftUI | user interface | Apple |
 
-## Лицензии
-Проект распространяется под **GPL-3.0-or-later** (см. `LICENSE`), потому что использует
+## License
+Distributed under **GPL-3.0-or-later** (see `LICENSE`) because it uses
 [libaustralis](https://github.com/jrobiche/libaustralis) (GPL-3.0).
-Для конвертации используется [iso2god-rs](https://github.com/iliazeus/iso2god-rs) (MIT).
-Формат `.asset` описан в [AuroraAssetEditor](https://github.com/XboxUnity/AuroraAssetEditor).
